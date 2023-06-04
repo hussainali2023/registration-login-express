@@ -21,8 +21,13 @@ mongoose.connect(`${process.env.DB_URL}`, {
 const authAdminRoutes = require('./routes/adminRoute');
 const authClientRoutes = require("./routes/clientRoute")
 
-app.use('/api', authAdminRoutes);
+app.use('/api/admin', authAdminRoutes);
 app.use("/api/client", authClientRoutes)
+
+
+app.get('/', (req, res) => {
+  res.send("Server is running ")
+} )
 
 // Start the server
 app.listen(3000, () => {
