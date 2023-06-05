@@ -23,12 +23,12 @@ exports.addComplain = async (req, res) =>{
 }
 
 exports.updateComplain= async (req, res) => {
-    const { _id } = req.params;
+    const {_id } = req.params;
     const { complain_text, complain_status } = req.body;
   
     try {
       // Find the complain by ID
-      const complain = await User.findById(_id);
+      const complain = await Complain.findById(_id);
   
       if (!complain) {
         return res.status(404).json({ message: 'Complain not found' });
@@ -47,3 +47,29 @@ exports.updateComplain= async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+  exports.getAllComplain = async(req, res) =>{
+    try{
+      const allComplain = await Complain.find({}, "-__v" )
+      return res.status(202).json({allComplain})
+    }
+    catch(error){
+      return res.status(500).json({message:"Internal server error"})
+    }
+  }
+
+
+  exports.getComplainById = async(req, res) =>{
+    const {_id} = req.params;
+    try{
+      const complain = await Complain.findById({_id}, " -__v");
+      if(!complain){
+        return res.status(404).json({message:"complain not found"})
+      }
+      return res.status(200).json({complain})
+    }
+    catch(error){
+      return res.status(500).json({message:"Internal server error"})
+    }
+  }
+  
