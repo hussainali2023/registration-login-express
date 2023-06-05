@@ -5,6 +5,7 @@ const authClientController = require("../controller/authClientController")
 
 
 router.post("/login", authClientController.login)
+router.post("/update/:_id", authClientController.updateClient)
 router.get("/",authClientController.getAllClient )
 router.get("/email/:email", authClientController.getClientByEmail)
 router.get("/id/:_id", authClientController.getClientById)

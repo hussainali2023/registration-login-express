@@ -20,9 +20,11 @@ mongoose.connect(`${process.env.DB_URL}`, {
 // Set up routes
 const authAdminRoutes = require('./routes/adminRoute');
 const authClientRoutes = require("./routes/clientRoute")
+const authComplainRoutes = require("./routes/complainRoute")
 
 app.use('/api/admin', authAdminRoutes);
 app.use("/api/client", authClientRoutes)
+app.use("/api/complain", authComplainRoutes)
 
 
 app.get('/', (req, res) => {
