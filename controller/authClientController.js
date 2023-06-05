@@ -39,3 +39,41 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.getAllClient = async(req, res) =>{
+
+  try{
+    const clients = await User.find({}, "-password -__v")
+    return res.status(200).json({clients})
+}
+catch(error){
+  return res.status(500).json({message:"Internal server error"})
+}  
+}
+
+exports.getClientByEmail = async(req, res) =>{
+  const {email} = req.params;
+  try{
+    const client = await User.findOne({email}, "-password -__v");
+    if(!client){
+      return res.status(404).json({message:"user not found"})
+    }
+    return res.status(200).json({client})
+  }
+  catch(error){
+    return res.status(500).json({message:"Internal server error"})
+  }
+}
+exports.getClientById = async(req, res) =>{
+  const {_id} = req.params;
+  try{
+    const client = await User.findOne({_id}, "-password -__v");
+    if(!client){
+      return res.status(404).json({message:"user not found"})
+    }
+    return res.status(200).json({client})
+  }
+  catch(error){
+    return res.status(500).json({message:"Internal server error"})
+  }
+}
